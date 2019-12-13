@@ -7,25 +7,22 @@ import SEO from "../components/seo"
 
 import { RichText } from "prismic-reactjs"
 export const query = graphql`
-query MyHomepageQuery {
-prismic {
-  allHomepages {
-    edges {
-      node {
-        title
-      }
+query MyQuery($uid:String!) {
+  prismic {
+    post(uid:$uid, lang:"fr-fr"){
+      title
     }
   }
 }
-}`
+`
 
-export default ({ data }) => {
-  const doc = data.prismic.allHomepages.edges.slice(0, 1).pop()
-  if (!doc) return null
+export default ({ data: { prismic } }) => {
+  const { post } = prismic
+  if (!post) return null
   return (
     <Layout>
       <div>
-        <h1>{RichText.asText(doc.node.title)}</h1>
+        <h1>{RichText.asText(post.title)}</h1>
       </div>
     </Layout>
   )

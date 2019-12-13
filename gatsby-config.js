@@ -13,6 +13,20 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-prismic-graphql`,
+      options: {
+        repositoryName: 'demolunch',
+        path: '/preview',
+    pages: [{
+      type: 'Post',
+      match: '/post/:uid',
+      path: '/blog-preview',
+      component: require.resolve('./src/templates/posts.js')
+    }]
+
+      }
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
